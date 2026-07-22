@@ -13,6 +13,10 @@ stdenv.mkDerivation {
 
   configureFlags = [ (lib.enableFeature withStatic "static") ];
 
+  # llvm-rc does not inherit the target compiler wrapper's header search path.
+  # Pass the MinGW headers explicitly for src/version.rc's <winver.h> include.
+  RCFLAGS = "--include-dir=${mingw_w64_headers}/include";
+
   preConfigure = ''
     cd mingw-w64-libraries/winpthreads
   '';
