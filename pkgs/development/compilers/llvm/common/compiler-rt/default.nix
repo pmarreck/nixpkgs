@@ -36,7 +36,7 @@
   # implementation of the routines instead of the implementation
   # using ad-hoc mutexes (which doesn't depend on libc at all).
   # Use of pthreads helps code play better with sanitizers.
-  withAtomicsPthread ? lib.versionAtLeast release_version "19" && stdenv.cc.libc != null,
+  withAtomicsPthread ? lib.versionAtLeast release_version "19" && stdenv.cc.libc != null && !stdenv.hostPlatform.isMinGW,
 
   # In recent releases, the compiler-rt build seems to produce
   # many `libclang_rt*` libraries, but not a single unified
